@@ -1,8 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:connectivity/connectivity.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var connectivityResult = await (Connectivity().checkConnectivity());
+  if (connectivityResult == ConnectivityResult.none) {
+    runApp(NoConnection());
+  } else {
+    runApp(MyApp());
+  }
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -10,34 +21,56 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  WebViewController _webViewController;
+  var connectivityResult = (Connectivity().checkConnectivity());
+  WebViewController webViewController;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Teori Lekse',
-        home: WillPopScope(
-          onWillPop: () async {
-            String url = await _webViewController.currentUrl();
-            if (url == 'https://teorilekse.no/') {
-              return true;
-            } else {
-              _webViewController.goBack();
-              return false;
-            }
+      debugShowCheckedModeBanner: false,
+      title: 'Teori Lekse',
+      home: HomeApp(),
+    );
+  }
+}
+
+class HomeApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        String url = await _MyAppState().webViewController.currentUrl();
+        if (url == 'https://teorilekse.no/') {
+          return true;
+        } else {
+          _MyAppState().webViewController.goBack();
+          return false;
+        }
+      },
+      child: Container(
+        color: Colors.white,
+        child: SafeArea(
+            child: WebView(
+          gestureNavigationEnabled: true,
+          onWebViewCreated: (WebViewController wc) {
+            _MyAppState().webViewController = wc;
           },
-          child: Container(
-            color:Colors.white,
-            child: SafeArea(
-                child: WebView(
-                  gestureNavigationEnabled: true,
-              onWebViewCreated: (WebViewController wc) {
-                _webViewController = wc;
-              },
-              javascriptMode: JavascriptMode.unrestricted,
-              initialUrl: 'https://teorilekse.no/',
-            )),
-          ),
-        ));
+          javascriptMode: JavascriptMode.unrestricted,
+          initialUrl: 'https://teorilekse.no/',
+        )),
+      ),
+    );
+  }
+}
+
+class NoConnection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Check your connection',
+        style: TextStyle(fontSize: 30),
+      ),
+    );
   }
 }
