@@ -26,14 +26,18 @@ class _MyAppState extends State<MyApp> {
               return false;
             }
           },
-          child: SafeArea(
-              child: WebView(
-            onWebViewCreated: (WebViewController wc) {
-              _webViewController = wc;
-            },
-            javascriptMode: JavascriptMode.unrestricted,
-            initialUrl: 'https://teorilekse.no/',
-          )),
+          child: Container(
+            color:Colors.white,
+            child: SafeArea(
+                child: WebView(
+                  gestureNavigationEnabled: true,
+              onWebViewCreated: (WebViewController wc) {
+                _webViewController = wc;
+              },
+              javascriptMode: JavascriptMode.unrestricted,
+              initialUrl: 'https://teorilekse.no/',
+            )),
+          ),
         ));
   }
 }
