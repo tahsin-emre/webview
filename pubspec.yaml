@@ -29,14 +29,30 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   webview_flutter: ^2.0.4
-  flutter_launcher_name: ^0.0.1
   connectivity: ^3.0.3
+  # flutter_launcher_name: ^0.0.1
+  # flutter_native_splash: ^1.1.7+1
+  # flutter_launcher_icons: ^0.9.0
+  
 
 
+# flutter_icons:
+#   android: true
+#   ios: true
+#   image_path: "assets/logo.png"
+
+  
+# flutter_native_splash:
+#   image: assets/logo.png
+#   color: "ffffff"
+#   fullscreen: true
+# flutter pub run flutter_native_splash:create
+
+# flutter_launcher_name:
+#   name: "TeoriLekse"
+# flutter pub run flutter_launcher_name:main
 
 
-flutter_launcher_name:
-  name: "TeoriLekse"
 
 
 dev_dependencies:

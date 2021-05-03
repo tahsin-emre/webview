@@ -29,8 +29,29 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Teori Lekse',
-      home: HomeApp(),
+      home: Splash(),
     );
+  }
+}
+
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) => HomeApp()), (route) => false);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
   }
 }
 

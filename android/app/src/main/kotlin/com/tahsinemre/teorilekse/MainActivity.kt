@@ -1,4 +1,4 @@
-package com.example.webview
+package com.tahsinemre.teorilekse
 
 import io.flutter.embedding.android.FlutterActivity
 

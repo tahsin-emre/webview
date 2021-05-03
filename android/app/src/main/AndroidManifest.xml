@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.webview">
+    package="com.tahsinemre.teorilekse">
    <application
         android:label="TeoriLekse"
         android:icon="@mipmap/ic_launcher">
