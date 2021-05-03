@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:video_player/video_player.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,18 +41,41 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  VideoPlayerController _controller;
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 5), () {
+
+    _controller = VideoPlayerController.asset('assets/intro.mp4')
+      ..addListener(() => setState(() {}))
+      ..setVolume(1)
+      ..initialize().then((value) => _controller.play());
+    Future.delayed(Duration(seconds: 8), () {
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) => HomeApp()), (route) => false);
     });
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: VideoPlayer(
+        _controller,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(context,
+              MaterialPageRoute(builder: (context) => HomeApp()), (route) => false);
+        },
+        child: Icon(Icons.play_arrow),
+      ),
+    );
   }
 }
 

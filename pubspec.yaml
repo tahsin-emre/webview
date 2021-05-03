@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   webview_flutter: ^2.0.4
   connectivity: ^3.0.3
+  video_player: ^2.1.1
   # flutter_launcher_name: ^0.0.1
   # flutter_native_splash: ^1.1.7+1
   # flutter_launcher_icons: ^0.9.0
@@ -77,6 +78,7 @@ flutter:
   assets:
    - assets/logo.png
    - assets/launcher.png
+   - assets/intro.mp4
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
